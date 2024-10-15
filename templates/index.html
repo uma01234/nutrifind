@@ -7,92 +7,82 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        h1 {
+
+        .container {
             text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
         }
-        .filter-form {
-            margin: 20px 0;
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333333;
         }
-        .filter-form label {
-            display: block;
-            margin-bottom: 10px;
+
+        form {
+            display: flex;
+            flex-direction: column;
         }
-        .results {
-            margin-top: 20px;
+
+        label {
+            margin: 10px 0 5px 0;
+            font-size: 16px;
         }
-        .results table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .results th, .results td {
+
+        input[type="text"], select {
             padding: 10px;
-            border: 1px solid #ddd;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>NutriFind</h1>
-    <div class="filter-form">
-        <h2>Filter by Dietary Preferences</h2>
-        <label>
-            <input type="checkbox" id="gluten-free"> Gluten-Free
-        </label>
-        <label>
-            <input type="checkbox" id="high-protein"> High-Protein
-        </label>
-        <button id="filter-btn">Filter Foods</button>
-    </div>
-    <div class="results">
-        <h2>Filtered Results</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Recipe Name</th>
-                    <th>Calories</th>
-                    <th>Protein (g)</th>
-                    <th>Gluten-Free</th>
-                </tr>
-            </thead>
-            <tbody id="results-table">
-                <!-- Filtered recipes will appear here -->
-            </tbody>
-        </table>
-    </div>
+    <div class="container">
+        <h1>NutriFind</h1>
+        <form action="/search" method="POST">
+            <label for="ingredient">Ingredient:</label>
+            <input type="text" id="ingredient" name="ingredient" placeholder="Enter an ingredient" required>
+            
+            <label for="diet">Dietary Restriction:</label>
+            <select id="diet" name="diet">
+                <option value="">None</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="gluten-free">Gluten-Free</option>
+                <option value="dairy-free">Dairy-Free</option>
+                <option value="peanut-free">Peanut-Free</option>
+            </select>
 
-    <script>
-        document.getElementById('filter-btn').addEventListener('click', function() {
-            const preferences = [];
-            if (document.getElementById('gluten-free').checked) {
-                preferences.push('gluten-free');
-            }
-            if (document.getElementById('high-protein').checked) {
-                preferences.push('high-protein');
-            }
-
-            fetch('/filter', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ preferences: preferences })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('results-table');
-                tableBody.innerHTML = '';  // Clear existing results
-                data.forEach(recipe => {
-                    const row = `<tr>
-                                    <td>${recipe['Name']}</td>
-                                    <td>${recipe['Calories']}</td>
-                                    <td>${recipe['Protein']}</td>
-                                    <td>${recipe['Gluten-Free'] ? 'Yes' : 'No'}</td>
-                                </tr>`;
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                });
-            });
-        });
-    </script>
+            <input type="submit" value="Search">
+        </form>
+    </div>
 </body>
 </html>
