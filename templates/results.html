@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Results</title>
+    <title>NutriFind</title>
+    <style>
+        .main div{
+            display: inline;
+            background-color: #04af2f;
+            color: white;
+            text-align: center;
+            border: 2px solid white;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Recipe Results</h1>
     <ul>
         {% for recipe in recipes %}
         <li>
+        <div class='main'>
             <h3>{{ recipe.label }}</h3>
             <p><strong>Meal Type:</strong> {{ recipe.mealType }}</p>
             <p><strong>Calories:</strong> {{ recipe.calories }}</p>
@@ -20,6 +31,7 @@
                 {% endfor %}
             </ul>
             <p><a href="{{ recipe.url }}" target="_blank">View Recipe</a></p>
+        </div>
         </li>
         {% endfor %}
     </ul>

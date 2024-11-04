@@ -69,17 +69,18 @@
         <h1>NutriFind</h1>
         <form action="/search" method="POST">
             <label for="ingredient">Ingredient:</label>
-            <input type="text" id="ingredient" name="ingredient" placeholder="Enter an ingredient" required>
-            
+            <input type="text" id="ingredient" name="ingredient" placeholder="Enter an ingredient" required><br><br>
+        
             <label for="diet">Dietary Restriction:</label>
-            <select id="diet" name="diet">
+            <small>Hold Ctrl (or Cmd on Mac) to select multiple options</small><br>
+            <select id="diet" name="diet" multiple>
                 <option value="">None</option>
                 <option value="vegan">Vegan</option>
                 <option value="vegetarian">Vegetarian</option>
                 <option value="gluten-free">Gluten-Free</option>
                 <option value="dairy-free">Dairy-Free</option>
                 <option value="peanut-free">Peanut-Free</option>
-            </select>
+            </select><br><br>
 
             <input type="submit" value="Search">
         </form>
