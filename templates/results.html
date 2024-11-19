@@ -5,35 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NutriFind</title>
     <style>
-        .main div{
-            display: inline;
-            background-color: #04af2f;
-            color: white;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
             text-align: center;
-            border: 2px solid white;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #04af2f;
+            margin-bottom: 30px;
+        }
+
+        .results-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: left;
+        }
+
+        .recipe-card {
+            background-color: white;
+            color: #333;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .recipe-card h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .recipe-details p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .ingredients-list {
+            background-color: #fff;
+            color: #333;
+            border-radius: 5px;
             padding: 10px;
+            margin: 10px 0;
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .ingredients-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ingredients-list li:last-child {
+            border-bottom: none;
+        }
+
+        .recipe-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #f4f4f4;
+            background-color: #4CAF50;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .recipe-link:hover {
+            background-color: #222;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <h1>Recipe Results</h1>
-    <ul>
+    
+    <!-- Back or Search Again Button -->
+    <a href="/" class="back-button">Search Again</a>
+
+    <div class="results-container">
         {% for recipe in recipes %}
-        <li>
-        <div class='main'>
+        <div class="recipe-card">
             <h3>{{ recipe.label }}</h3>
-            <p><strong>Meal Type:</strong> {{ recipe.mealType }}</p>
-            <p><strong>Calories:</strong> {{ recipe.calories }}</p>
-            <p><strong>Ingredients:</strong></p>
-            <ul>
-                {% for ingredient in recipe.ingredients %}
-                <li>{{ ingredient }}</li>
-                {% endfor %}
-            </ul>
-            <p><a href="{{ recipe.url }}" target="_blank">View Recipe</a></p>
+            <div class="recipe-details">
+                <p><strong>Meal Type:</strong> {{ recipe.mealType | join(', ') }}</p>
+                <p><strong>Calories:</strong> {{ recipe.calories }}</p>
+                <p><strong>Ingredients:</strong></p>
+                <ul class="ingredients-list">
+                    {% for ingredient in recipe.ingredients %}
+                    <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+                <a href="{{ recipe.url }}" class="recipe-link" target="_blank">View Recipe</a>
+            </div>
         </div>
-        </li>
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>
