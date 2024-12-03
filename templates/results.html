@@ -116,6 +116,7 @@
             <div class="recipe-details">
                 <p><strong>Meal Type:</strong> {{ recipe.mealType | join(', ') }}</p>
                 <p><strong>Calories:</strong> {{ recipe.calories }}</p>
+                <p><strong>Dietary Labels:</strong> {{ recipe.healthLabels | join(', ') }}</p>
                 <p><strong>Ingredients:</strong></p>
                 <ul class="ingredients-list">
                     {% for ingredient in recipe.ingredients %}
@@ -127,5 +128,6 @@
         </div>
         {% endfor %}
     </div>
+    <a href="/" class="back-button">Search Again</a>
 </body>
 </html>
